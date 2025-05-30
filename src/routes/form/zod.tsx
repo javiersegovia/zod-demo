@@ -145,7 +145,8 @@ function ZodForm() {
                   onBlur={() => {
                     const result = userRegistrationSchema.shape.email.safeParse(formData.email)
                     if (!result.success) {
-                      setErrors(prev => ({ ...prev, email: [result.error.message] }))
+                      console.log(result.error.issues[0].message)
+                      setErrors(prev => ({ ...prev, email: [result.error.issues[0].message] }))
                     }
                   }}
                   className="bg-neutral-950 border-neutral-700 text-white"
