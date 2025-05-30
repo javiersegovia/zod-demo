@@ -55,7 +55,7 @@ const formData = { name: "Jane", email: "jane@example", message: "Hi" };
 const result = contactFormSchema.safeParse(formData);
 
 if (!result.success) {
-  const errors = result.error.flatten();
+  const errors = z.flattenError(result.error);
   console.log("Form errors:", errors.fieldErrors);
   
   /* Example output for fieldErrors:

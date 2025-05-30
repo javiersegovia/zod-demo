@@ -18,7 +18,6 @@ import { Route as Presentation2CoreConceptsImport } from './routes/presentation/
 import { Route as Presentation1IntroImport } from './routes/presentation/1-intro'
 import { Route as FormZodImport } from './routes/form/zod'
 import { Route as FormVanillaImport } from './routes/form/vanilla'
-import { Route as FormTanstackFormImport } from './routes/form/tanstack-form'
 
 // Create/Update Routes
 
@@ -66,12 +65,6 @@ const FormVanillaRoute = FormVanillaImport.update({
   getParentRoute: () => rootRoute,
 } as any)
 
-const FormTanstackFormRoute = FormTanstackFormImport.update({
-  id: '/form/tanstack-form',
-  path: '/form/tanstack-form',
-  getParentRoute: () => rootRoute,
-} as any)
-
 // Populate the FileRoutesByPath interface
 
 declare module '@tanstack/react-router' {
@@ -81,13 +74,6 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexImport
-      parentRoute: typeof rootRoute
-    }
-    '/form/tanstack-form': {
-      id: '/form/tanstack-form'
-      path: '/form/tanstack-form'
-      fullPath: '/form/tanstack-form'
-      preLoaderRoute: typeof FormTanstackFormImport
       parentRoute: typeof rootRoute
     }
     '/form/vanilla': {
@@ -139,7 +125,6 @@ declare module '@tanstack/react-router' {
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/form/tanstack-form': typeof FormTanstackFormRoute
   '/form/vanilla': typeof FormVanillaRoute
   '/form/zod': typeof FormZodRoute
   '/presentation/1-intro': typeof Presentation1IntroRoute
@@ -150,7 +135,6 @@ export interface FileRoutesByFullPath {
 
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/form/tanstack-form': typeof FormTanstackFormRoute
   '/form/vanilla': typeof FormVanillaRoute
   '/form/zod': typeof FormZodRoute
   '/presentation/1-intro': typeof Presentation1IntroRoute
@@ -162,7 +146,6 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRoute
   '/': typeof IndexRoute
-  '/form/tanstack-form': typeof FormTanstackFormRoute
   '/form/vanilla': typeof FormVanillaRoute
   '/form/zod': typeof FormZodRoute
   '/presentation/1-intro': typeof Presentation1IntroRoute
@@ -175,7 +158,6 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
-    | '/form/tanstack-form'
     | '/form/vanilla'
     | '/form/zod'
     | '/presentation/1-intro'
@@ -185,7 +167,6 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
-    | '/form/tanstack-form'
     | '/form/vanilla'
     | '/form/zod'
     | '/presentation/1-intro'
@@ -195,7 +176,6 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
-    | '/form/tanstack-form'
     | '/form/vanilla'
     | '/form/zod'
     | '/presentation/1-intro'
@@ -207,7 +187,6 @@ export interface FileRouteTypes {
 
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  FormTanstackFormRoute: typeof FormTanstackFormRoute
   FormVanillaRoute: typeof FormVanillaRoute
   FormZodRoute: typeof FormZodRoute
   Presentation1IntroRoute: typeof Presentation1IntroRoute
@@ -218,7 +197,6 @@ export interface RootRouteChildren {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  FormTanstackFormRoute: FormTanstackFormRoute,
   FormVanillaRoute: FormVanillaRoute,
   FormZodRoute: FormZodRoute,
   Presentation1IntroRoute: Presentation1IntroRoute,
@@ -238,7 +216,6 @@ export const routeTree = rootRoute
       "filePath": "__root.tsx",
       "children": [
         "/",
-        "/form/tanstack-form",
         "/form/vanilla",
         "/form/zod",
         "/presentation/1-intro",
@@ -249,9 +226,6 @@ export const routeTree = rootRoute
     },
     "/": {
       "filePath": "index.tsx"
-    },
-    "/form/tanstack-form": {
-      "filePath": "form/tanstack-form.tsx"
     },
     "/form/vanilla": {
       "filePath": "form/vanilla.tsx"

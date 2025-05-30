@@ -90,8 +90,7 @@ upperCaseStringSchema.parse("hello"); // Output: "HELLO"`}
                   }}
                 >
 {`// Example 1: .refine() for a single field
-const usernameSchema = z.string()
-  .refine((val) => val.length >= 5, {
+const usernameSchema = z.string().refine((val) => val.length >= 5, {
     message: "Username must be at least 5 characters"
   });
 
@@ -158,7 +157,7 @@ const detailedUser = baseUserSchema.extend({
 // Example 2: .pick() to select fields
 const userIdentity = detailedUser.pick({
   id: true,
-  username: true
+  email: true
 });
 
 // Example 3: .discriminatedUnion() for different object shapes based on a field
@@ -260,7 +259,7 @@ try {
                     fontSize: '1rem'
                   }}
                 >
-{`// Example 1: Parsing a CSV string of numbers, then validating each is positive
+{`// Example: Parsing a CSV string of numbers, then validating each is positive
 const stringToPositiveNumbersArray = z.string()
   .transform((val) => val.split(',').map(s => s.trim())) // Stage 1: CSV string to string[]
   .pipe( // Stage 2: Validate/transform string[] to number[] (positive)
@@ -287,31 +286,7 @@ try {
 try {
   stringToPositiveNumbersArray.parse("1, two, 3");
 } catch(e) {
-  // console.log(e.issues[0].message); // ZodError: Expected number, received NaN (for "two" after Number("two"))
-}
-
-// Example 2: Ensure a string is a valid URL, then check if it's a specific domain
-const ensureExampleComUrl = z.string()
-  .url({ message: "Invalid URL format" })
-  .pipe(
-    z.string().refine(
-      (url) => new URL(url).hostname === 'example.com',
-      { message: "URL must be from example.com" }
-    )
-  );
-
-ensureExampleComUrl.parse("https://example.com/path"); // OK
-
-try {
-  ensureExampleComUrl.parse("ftp://notaurl");
-} catch(e) {
-  // console.log(e.issues[0].message); // "Invalid URL format"
-}
-
-try {
-  ensureExampleComUrl.parse("https://another.com/path");
-} catch(e) {
-  // console.log(e.issues[0].message); // "URL must be from example.com"
+  // console.log(e.issues[0].message); // ZodError: Expected number, received NaN
 }`}
                 </SyntaxHighlighter>
               </div>
@@ -326,10 +301,10 @@ try {
               ← Back to Use Cases
             </Link>
             <Link
-              to="/"
+              to="/form/vanilla"
               className="bg-gradient-to-r from-yellow-600 to-orange-600 hover:from-yellow-700 hover:to-orange-700 text-white px-6 py-3 rounded-lg font-semibold transition-all duration-200 hover:scale-105 shadow-lg shadow-yellow-600/25"
             >
-              🎉 Finish Presentation
+              See Form Example →
             </Link>
           </div>
         </div>

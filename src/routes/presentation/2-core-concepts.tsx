@@ -2,7 +2,7 @@ import { Link, createFileRoute } from '@tanstack/react-router'
 import { useState } from 'react'
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter'
 import { vscDarkPlus } from 'react-syntax-highlighter/dist/esm/styles/prism'
-import { z } from 'zod'
+import { z } from 'zod/v4'
 
 export const Route = createFileRoute('/presentation/2-core-concepts')({
   component: CoreConceptsPage,
@@ -57,11 +57,16 @@ function CoreConceptsPage() {
                     fontSize: '1rem'
                   }}
                 >
-{`// Basic primitive types
+{`import { z } from 'zod';
+
 const nameSchema = z.string(); // Basic string
+
 const ageSchema = z.number().positive(); // Positive number
+
 const isAdminSchema = z.boolean(); // Boolean
+
 const tagsSchema = z.array(z.string()); // Array of strings
+
 const statusSchema = z.enum(['pending', 'processing', 'completed']); // Enum
 
 // Object schema
@@ -89,25 +94,29 @@ const userSchema = z.object({
                     fontSize: '1rem'
                   }}
                 >
-{`// .parse() - throws an error on invalid data
-nameSchema.parse("John Doe"); // OK
+{`const stringSchema = z.string().min(3, { message: "String must be at least 3 characters long." });
+
+// .parse() - throws an error on invalid data
+stringSchema.parse("Hello World"); // OK - returns "Hello World"
 
 try { 
-  ageSchema.parse(-5) 
+  stringSchema.parse("Hi")
 } catch (e) { 
- console.error(e) // Throws ZodError
+ console.error(e) // Throws ZodError: "String must be at least 3 characters long."
 } 
 
 // .safeParse() - returns a result object (success: true/false)
-const result = tagsSchema.safeParse(["tag1", 123]);
+const result = stringSchema.safeParse("Hi");
 
 if (!result.success) { 
-  console.log(result.error.flatten()); 
+  console.log(result.error.issues[0].message); // "String must be at least 3 characters long."
+} else {
+  console.log("Valid input:", result.data);
 }`}
                 </SyntaxHighlighter>
               </div>
               <p className="text-gray-400 my-6">
-                Try it yourself! Enter some text below (min 3 chars):
+                Enter some text below (min 3 chars):
               </p>
               <div className="flex items-center space-x-2">
                 <input
